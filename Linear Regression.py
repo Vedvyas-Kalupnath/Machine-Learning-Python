@@ -1,42 +1,57 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def estimate_coef(x, y):
-# number of observations/points
-    n = np.size(x)
-    # mean of x and y vector
-    m_x, m_y = np.mean(x), np.mean(y)
-    # calculating cross-deviation and deviation about x
-    SS_xy = np.sum(y*x) - n*m_y*m_x
-    SS_xx = np.sum(x*x) - n*m_x*m_x
-    # calculating regression coefficients
-    b_1 = SS_xy / SS_xx
-    b_0 = m_y - b_1*m_x
-    return(b_0, b_1)
+
+def estimate_coefficient(x,y):
+     # no of observation
+     n = np.size(x)
+
+     #mean of x and y
+     m_x, m_y = np.mean(x), np.mean(y)
+
+     #calculating the cross deviation and deviation of x
+     ss_xy = np.sum(y*x) - n*m_y*m_x
+     ss_xx = np.sum(x * x) - n * m_x * m_x
+
+     #calculating regression cofficient
+     b_1 = ss_xy / ss_xx
+     b_0 = m_y - b_1*m_x
+     #c = y - mx
+
+     return b_0, b_1
+
 
 def plot_regression_line(x, y, b):
-    # plotting the actual points as scatter plot
-    plt.scatter(x, y, color = "g",
-    marker = "*", s = 30)
-    # predicted response vector
+    #plotting the actual points as scatter plot
+    plt.scatter(x, y, color = "b", marker ="o", s=30)
+
+    #predicted response vector
     y_pred = b[0] + b[1]*x
-    # plotting the regression line
-    plt.plot(x, y_pred, color = "darkblue")
-    # putting labels
-    plt.xlabel('age')
-    plt.ylabel('population having mobile')
-    # function to show plot
+
+    #plotting the regression line
+    plt.plot(x, y_pred, color ="y")
+
+    #putting labels
+    plt.xlabel("x")
+    plt.ylabel("y")
+
+    #function to show plot
     plt.show()
 
+
 def main():
-    # observations
-    x = np.array([10,20,30,40,50,60,70,80,90,100])
-    y = np.array([40,80,90,82,65,50,35,30,15,5])
-    # estimating coefficients
-    b = estimate_coef(x, y)
-    print("Estimated coefficients:\nb_0 = {} \
-    \nb_1 = {}".format(b[0], b[1]))
-    # plotting regression line
-    plot_regression_line(x, y, b)
+     #  observation
+     x = np.array([3, 2,  4, 0])
+     y = np.array([4, 1, 3, 1])
+
+     # estimate cofficient
+     b = estimate_coefficient(x, y)
+
+     #plotting regression line
+     plot_regression_line(x, y, b)
+
+     print("Estimated coefficients:\n b_0 = {}   \n b_1 = {}".format(b[0], b[1]))
+
+
 if __name__ == "__main__":
     main()
